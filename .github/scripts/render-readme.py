@@ -1,5 +1,7 @@
+
 from jinja2 import Environment, FileSystemLoader
 import json
+
 
 DATAFILE = "./data.json"
 TEMPLATEPATH = "./.github/"
@@ -8,6 +10,7 @@ TARGETFILE = "./README.md"
 
 def new_technology_dict(repo_technology):
     return {"link_id": repo_technology.lower(), "entries": []}
+
 
 technologies = {}
 
@@ -20,6 +23,7 @@ for technology in data["technologies"]:
         "entries": [],
     }
 
+
 for repository in data["repositories"]:
     repo_technologies = repository["technologies"]
     for repo_technology in repo_technologies:
@@ -28,6 +32,7 @@ for repository in data["repositories"]:
         technologies[repo_technology]["entries"].append(repository)
 
 env = Environment(loader=FileSystemLoader(TEMPLATEPATH))
+
 template = env.get_template(TEMPLATEFILE)
 
 categories = []
@@ -46,6 +51,7 @@ for category in categories:
             category_groups[first_char] = []
         category_groups[first_char].append(category)
     else:
+
         category_groups["Misc"].append(category)
 
 sponsors = data["sponsors"]
